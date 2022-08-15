@@ -89,6 +89,7 @@ func TestContextCancel(t *testing.T) {
 	ctx := context.Background()
 	dlCtx, cancel := context.WithCancel(ctx)
 	cancel()
+	fmt.Println(dlCtx.Value("KEY"))
 	fmt.Println(dlCtx.Err())
 }
 
@@ -105,4 +106,48 @@ func TestContextErr(t *testing.T) {
 	fmt.Println("vCtx.Err():", vCtx.Err())
 	fmt.Println("vCtx.Done():", vCtx.Done())
 	fmt.Println("vCtx.Value():", vCtx.Value("key"))
+}
+
+func TestWithCancels(t *testing.T) {
+	c1, cancel := context.WithCancel(context.Background())
+
+	if got, want := fmt.Sprint(c1), "context.Background.WithCancel"; got != want {
+		t.Errorf("c1.String() = %q want %q", got, want)
+	}
+
+	o := context.Background()
+	c2, _ := context.WithCancel(o)
+	contexts := []context.Context{c1, o, c2}
+
+	for i, c := range contexts {
+		if d := c.Done(); d == nil {
+			t.Errorf("c[%d].Done() == %v want non-nil", i, d)
+		}
+		if e := c.Err(); e != nil {
+			t.Errorf("c[%d].Err() == %v want nil", i, e)
+		}
+
+		select {
+		case x := <-c.Done():
+			t.Errorf("<-c.Done() == %v want nothing (it should block)", x)
+		default:
+		}
+	}
+
+	cancel() // Should propagate synchronously.
+	for i, c := range contexts {
+		select {
+		case <-c.Done():
+			fmt.Println(i, c)
+		default:
+			//t.Errorf("<-c[%d].Done() blocked, but shouldn't have", i)
+		}
+		//if e := c.Err(); e != context.Canceled {
+		//	t.Errorf("c[%d].Err() == %v want %v", i, e, context.Canceled)
+		//}
+	}
+}
+
+type otherContext struct {
+	context.Context
 }
