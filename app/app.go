@@ -72,8 +72,12 @@ func (node *App) Start() {
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, node.closeSignals...)
 	go func() {
-		<-c
-		node.Stop()
+		select {
+		//非信号退出时,及时回收goroutine
+		case <-node.ctx.Done():
+		case <-c:
+			node.Stop()
+		}
 	}()
 }
 

@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fffdb804-2f0d-4fa2-b1fa-213381b4bee4" name="Changes" comment="context测试">
-      <change afterPath="$PROJECT_DIR$/app/app.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/app_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/option.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmd/main.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/signal/signal.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sync/sync_test.go" afterDir="false" />
+    <list default="true" id="fffdb804-2f0d-4fa2-b1fa-213381b4bee4" name="Changes" comment="服务器停起服框架">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/context/context_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/demo/context/context_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interface/interface_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/demo/interface/interface_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/signal/signal.go" beforeDir="false" afterPath="$PROJECT_DIR$/demo/signal/signal.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sync/sync_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/demo/sync/sync_test.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +56,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Administrator\GolandProjects\go-project\demo" />
       <recent name="C:\Users\Administrator\GolandProjects\go-project\app" />
     </key>
   </component>
@@ -140,7 +141,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="context测试" />
-    <option name="LAST_COMMIT_MESSAGE" value="context测试" />
+    <MESSAGE value="服务器停起服框架" />
+    <option name="LAST_COMMIT_MESSAGE" value="服务器停起服框架" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
@@ -149,7 +151,7 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/context/context_test.go</url>
+          <url>file://$PROJECT_DIR$/demo/context/context_test.go</url>
           <line>91</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
