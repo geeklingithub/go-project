@@ -45,24 +45,24 @@ func Init(opts ...OptFunc) *App {
 }
 
 // Start 应用启动
-func (node *App) Start() {
+func (app *App) Start() {
 
 	wg := &sync.WaitGroup{}
-	for _, server := range node.servers {
+	for _, server := range app.servers {
 		wg.Add(1)
 
 		//服务关闭
 		go func() {
 			//应用关闭时,关闭服务
-			<-node.ctx.Done()
-			server.Stop(node.ctx)
+			<-app.ctx.Done()
+			server.Stop(app.ctx)
 		}()
 
 		//服务启动
 		server := server
 		go func() {
 			wg.Done()
-			server.Start(node.ctx)
+			server.Start(app.ctx)
 		}()
 	}
 
@@ -70,19 +70,29 @@ func (node *App) Start() {
 
 	//信号通知关服
 	c := make(chan os.Signal, 1)
-	signal.Notify(c, node.closeSignals...)
+	signal.Notify(c, app.closeSignals...)
 	go func() {
 		select {
 		//非信号退出时,及时回收goroutine
-		case <-node.ctx.Done():
+		case <-app.ctx.Done():
+		//信号退出时,优雅关闭应用
 		case <-c:
-			node.Stop()
+
+			//强制退出
+			force := make(chan os.Signal, 1)
+			signal.Notify(c, app.closeSignals...)
+			go func() {
+				<-force
+				panic("force exit")
+			}()
+
+			app.Stop()
 		}
 	}()
 }
 
 // Stop 应用关闭
-func (node *App) Stop() {
+func (app *App) Stop() {
 
-	node.cancel()
+	app.cancel()
 }
